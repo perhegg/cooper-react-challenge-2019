@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5"
@@ -14,7 +15,6 @@
     "eject": "react-scripts eject",
     "features": "jest -c jest.config.js"
   },
-  
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -25,8 +25,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
     "jest-dev-server": "^3.9.0",
     "jest-puppeteer": "^3.9.0",
-    "puppeteer": "^1.13.0"
+    "puppeteer": "^1.13.0",
+    "react-test-renderer": "^16.8.3"
   }
 }
