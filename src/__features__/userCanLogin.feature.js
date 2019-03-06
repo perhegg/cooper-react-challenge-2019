@@ -14,6 +14,7 @@ describe('User attempts to login', () => {
       await page.type('input[id="email"]', 'johndoe@mail.com')
       await page.type('input[id="password"]', 'password')
       await page.click('button[id="submit"]')
+      await page.waitFor(2000)
       await expect(page).toMatch('Hi johndoe@mail.com')
     })
   
@@ -22,6 +23,8 @@ describe('User attempts to login', () => {
       await page.type('input[id="email"]', 'wrongjohndoe@mail.com')
       await page.type('input[id="password"]', 'wronpassword')
       await page.click('button[id="submit"]')
+      await page.waitFor(2000)
       await expect(page).toMatch('Invalid login credentials. Please try again.')
     })
+
 })
