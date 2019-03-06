@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { storeAuthCredentials } from '.Auth'
+import { storeAuthCredentials } from './Auth'
 
 const apiUrl = 'http://localhost:3000/api/v1';
 
@@ -13,7 +13,7 @@ const saveData = (result) => {
       headers: headers
     })
     .then(response => {
-        storeAuthCredentials(response);
+      storeAuthCredentials(response);
       resolve(response.data.message);
     });  
   });
