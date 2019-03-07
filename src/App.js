@@ -4,6 +4,8 @@ import InputFields from "./Components/InputFields";
 import LoginForm from './Components/LoginForm';
 import { authenticate } from './Modules/Auth';
 import DisplayPerformanceData from './Components/DisplayPerformanceData'
+import DisplayResult from './Components/displayResults';
+
 
 
 class App extends Component {
@@ -19,9 +21,20 @@ class App extends Component {
       password: '',
       message: '',
       entrySaved: false,
-      renderIndex: false
+      renderIndex: false,
+      weight: '',
+      height: '',
+      method: 'metric'
     }
   }
+
+  handleChange(event) {
+    const target = event.target
+    this.setState({
+      [target.name]: target.value
+    })
+  }
+
   entryHandler() {
     this.setState({ entrySaved: true, updateIndex: true });
   }
@@ -51,6 +64,8 @@ class App extends Component {
     let renderLogin;
     let user;
     let performanceDataIndex;
+    const methodList = ["metric", "imperial"]
+
 
     if (this.state.authenticated === true) {
       user = JSON.parse(sessionStorage.getItem('credentials')).uid;
@@ -108,7 +123,36 @@ class App extends Component {
         {performanceDataIndex}
         {renderLogin}
 
+        <div className="mainComponent">
+        <div>
+          <label>Weight{this.state.method === "metric" ? "(kg)" : "(lbs)"}</label>
+          <input
+            name="weight"
+            value={this.state.weight}
+            onChange={this.handleChange.bind(this)}/>
+        </div>
+        <div>
+          <label>Height{this.state.method === "metric" ? "(cm)" : "(inches)"}</label>
+          <input
+            name="height"
+            value={this.state.height}
+            onChange={this.handleChange.bind(this)}/>
+          <p>
+            <select onChange={this.handleChange.bind(this)} name="method" id="methodSelect" >
+              {methodList.map(method => (
+                <option key={method} value={method}>{method}</option>
+              ))}
+            </select>
+          </p>
+        </div>
+        <DisplayResult 
+        weight={this.state.weight} 
+        height={this.state.height} 
+        method={this.state.method}
+        />
       </div>
+      </div>
+
     );
   }
 }
