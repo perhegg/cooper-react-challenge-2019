@@ -12,9 +12,13 @@ beforeAll(async () => {
         response = user || MockResponses.missingUserResponse
         return response
       case 'performance_data':
-        return MockResponses.savingEntryResponse
+        if ((request.method()) === 'POST') {
+          response = MockResponses.savingEntryResponse
+        } else if ((request.method()) === 'GET') {
+          response = MockResponses.performanceDataIndexResponse
+        }
+        return response
     }
-
   }
 
   const requests = {
