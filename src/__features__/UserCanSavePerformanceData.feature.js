@@ -1,4 +1,3 @@
-require('../__mocks__/mocksConfig')
 
 describe('User attempts save data', () => {
 
@@ -11,7 +10,7 @@ describe('User attempts save data', () => {
   beforeEach(async () => {
     await page.reload()
     await page.click('#login')
-    await page.type('input[id="email"]', 'johndoe@mail.com')
+    await page.type('input[id="email"]', 'johndoe@email.com')
     await page.type('input[id="password"]', 'password')
     await page.click('button[id="submit"]')
   })
@@ -20,6 +19,7 @@ describe('User attempts save data', () => {
     await page.type('input[id="distance"]', '1000')
     await page.select('select[id="gender"]', 'female')
     await page.type('input[id="age"]', '23')
+    jest.setTimeout(10000)
     await page.click('#save-result')
     await expect(page).toMatch('Your entry was saved')
   })
