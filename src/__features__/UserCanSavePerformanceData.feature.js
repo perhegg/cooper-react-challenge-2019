@@ -1,3 +1,4 @@
+
 describe('User attempts save data', () => {
 
   beforeAll(async () => {
@@ -27,11 +28,9 @@ describe('User attempts save data', () => {
     await page.type('input[id="distance"]', '1000')
     await page.select('select[id="gender"]', 'female')
     await page.type('input[id="age"]', '23')
-    jest.setTimeout(10000)
     await page.click('#save-result')
     await expect(page).toMatch('Your entry was saved')
     await page.type('input[id="distance"]', '1500')
-    jest.setTimeout(10000)
     await page.click('#save-result')
     await expect(page).toMatch('Your entry was saved')
   })
