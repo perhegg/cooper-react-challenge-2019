@@ -26,10 +26,11 @@ class App extends Component {
 
   onChange(event) {
     this.setState({
-      [event.target.id]: event.target.value
-    });
+      [event.target.id]: event.target.value,
+      entrySaved: false
+    })
   }
-
+  
   async onLogin(e) {
     e.preventDefault();
     let resp = await authenticate(this.state.email, this.state.password)
