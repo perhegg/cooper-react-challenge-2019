@@ -31,5 +31,13 @@ module.exports = {
           errors: ['Invalid login credentials. Please try again.']
         }
       )
+    },
+    
+    savingEntryResponse: {
+      status: 200,
+      headers: {},
+      body: JSON.stringify({
+        message: "all good"
+      })
     }
 }

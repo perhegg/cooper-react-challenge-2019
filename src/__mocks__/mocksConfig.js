@@ -11,12 +11,15 @@ beforeAll(async () => {
         })
         response = user || MockResponses.missingUserResponse
         return response
+      case 'performance_data':
+        return MockResponses.savingEntryResponse
     }
 
   }
 
   const requests = {
-    'sign_in': {}
+    'sign_in': {},
+    'performance_data': {}
   }
 
   await page.setRequestInterception(true);
