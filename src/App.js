@@ -66,7 +66,7 @@ class App extends Component {
     let renderLogin;
     let user;
     let performanceDataIndex;
-    const methodList = ["metric", "imperial"]
+    const methodList = [{text: "metric", value: "metric"}, {text: "imperial", value: "imperial"}]
 
 
     if (this.state.authenticated === true) {
@@ -118,8 +118,9 @@ class App extends Component {
             
             <Dropdown 
               selection
+              defaultValue={[0].value}
+              options={methodList}
               onChange={this.handleChange.bind(this)}
-            
             />
             
             
@@ -181,7 +182,7 @@ class App extends Component {
                 <option key={method} value={method}>{method}</option>
               ))}
             </select>
-          </p> */
+          </p>
       
        
         
