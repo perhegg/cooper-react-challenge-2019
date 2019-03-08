@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import DisplayCooperResult from './Components/DisplayCooperResult';
 import InputFields from "./Components/InputFields";
 import LoginForm from './Components/LoginForm';
+import Feader from './Components/feader'
 import { authenticate } from './Modules/Auth';
 import DisplayPerformanceData from './Components/DisplayPerformanceData'
 import DisplayResult from './Components/displayResults';
+import {Container, Grid, Form, Button, Dropdown} from 'semantic-ui-react'
 
 
 
@@ -108,50 +110,91 @@ class App extends Component {
     }
 
     return (
-      <div>
-        <InputFields 
-          inputChangeHandler={this.onChange.bind(this)}
-        />
-        <DisplayCooperResult
-          distance={this.state.distance}
-          gender={this.state.gender}
-          age={this.state.age}
-          authenticated={this.state.authenticated}
-          entrySaved={this.state.entrySaved}
-          entryHandler={this.entryHandler.bind(this)}
-        />
-        {performanceDataIndex}
-        {renderLogin}
+      
+      <Container>
+        <Grid centered columns={3}>
+          <Grid.Column>
+            <Feader />
+            
+            <Dropdown 
+              selection
+              onChange={this.handleChange.bind(this)}
+            
+            />
+            
+            
+            <Form type="large">
+            <Form.Input
+              fluid
+              name="weight"
+              placeholder={`Weight (${this.state.method === "metric" ? "kg" : "lbs"})`}           
+              onChange={this.handleChange.bind(this)}  
+            />
+            <Form.Input 
+              fluid
+              name="height"
+              placeholder={`Height (${this.state.method === "metric" ? "cm" : "inches"})`}
+              onChange={this.handleChange.bind(this)}
+            />
+            </Form>
 
-        <div className="mainComponent">
-        <div>
+          </Grid.Column>
+        </Grid>
+      </Container>
+
+        /* <InputFields 
+              inputChangeHandler={this.onChange.bind(this)}
+            />
+            <DisplayCooperResult
+              distance={this.state.distance}
+              gender={this.state.gender}
+              age={this.state.age}
+              authenticated={this.state.authenticated}
+              entrySaved={this.state.entrySaved}
+              entryHandler={this.entryHandler.bind(this)}
+            />
+            {performanceDataIndex}
+            {renderLogin}
+          */   
+        
+
+        /* <div>
           <label>Weight{this.state.method === "metric" ? "(kg)" : "(lbs)"}</label>
           <input
             name="weight"
             value={this.state.weight}
             onChange={this.handleChange.bind(this)}/>
-        </div>
-        <div>
+        </div> */
+       
+        /* <div>
           <label>Height{this.state.method === "metric" ? "(cm)" : "(inches)"}</label>
           <input
             name="height"
             value={this.state.height}
             onChange={this.handleChange.bind(this)}/>
+       
+       
+      
           <p>
             <select onChange={this.handleChange.bind(this)} name="method" id="methodSelect" >
               {methodList.map(method => (
                 <option key={method} value={method}>{method}</option>
               ))}
             </select>
-          </p>
-        </div>
-        <DisplayResult 
+          </p> */
+      
+       
+        
+        /* <DisplayResult 
         weight={this.state.weight} 
         height={this.state.height} 
         method={this.state.method}
         />
-      </div>
-      </div>
+        </div> */
+        
+      
+      
+    
 
     );
   }
