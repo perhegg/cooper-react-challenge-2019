@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getData } from '../Modules/PerformanceData';
+import {Line} from 'react-chartjs-2';
 
 class DisplayPerformanceData extends Component {
   constructor(props) {
@@ -26,20 +27,38 @@ class DisplayPerformanceData extends Component {
       this.getPerformanceData();
     }
     if (this.state.performanceData != null) {
-      dataIndex = (
-        <div>
-          {this.state.performanceData.map(item => {
-            return <div key={item.id}>{item.data.message}</div>
-          })}
-        </div>
-      )
-    }
+      const distances = []
+      const labels = []
+      this.state.performanceData.forEach(enty => {
+        distances.push(entry.data.distance)
+        labels.push(entry.data.message)
+            // return <div key={item.id}>{item.data.message}</div>
+          })
+          const data = {
+            datasets: [{
+              data: distances
+            }],
 
-    return (
-      <div>
-        {dataIndex}
-      </div>
+            labels: labels
+          }
+        }
+      
+    
+
+
+    dataIndex = (
+      <>
+        <Line ref='chart' data={data} />
+      </>
+      
     )
-  }      
-}
+    
+    return (
+      <>
+        {dataIndex}
+      </>
+    )
+  }
+} 
+  
   export default DisplayPerformanceData
