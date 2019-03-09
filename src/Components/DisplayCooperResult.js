@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CooperCalculator from '../Modules/CooperCalculator';
 import { saveData } from '../Modules/PerformanceData';
+import { Message, Button, Grid } from 'semantic-ui-react';
 
 class DisplayCooperResult extends Component {
 
@@ -23,32 +24,47 @@ class DisplayCooperResult extends Component {
 		let saveButton;
 
 		if (this.props.authenticated === true && this.props.entrySaved === false) {
-			saveButton = (
-				<>
-					<button id="save-result" onClick={this.saveCooperData.bind(this)}>Save entry</button>
-				</>
-			)
-		} else if (this.props.authenticated === true && this.props.entrySaved === true) {
-			saveButton = (
-				<>
-					<p>Your entry was saved</p>
-				</>
-			)
-		}
-		if (this.props.age !== '' && this.props.distance !== '') {
-			results = (
-				<>
-					<p>{this.props.age} y/o {this.props.gender} running {this.props.distance} meters.</p>
-					<p>Result: {this.calculate()}</p>
-					{saveButton}
-				</>
-			)
-			}
-		return (
-			<div>
-				{results}
-			</div>
-		)
+      saveButton = (
+        <>
+          <Button id="save-result"
+            onClick={this.saveCooperData.bind(this)}>
+            Save entry
+          </Button>
+        </>
+      );
+    } else if (
+      this.props.authenticated === true &&
+      this.props.entrySaved === true
+    ) {
+      saveButton = (
+        <>
+          <p>Your entry was saved</p>
+        </>
+      );
+    }
+
+    if (this.props.age !== "" && this.props.distance !== "") {
+      results = (
+        <Message>
+          <p>
+            {this.props.age} y/o {this.props.gender} running{" "}
+            {this.props.distance} meters.
+          </p>
+          <p>Result: {this.calculate()}</p>
+          {saveButton}
+        </Message>
+      );
+    }
+    return (
+      <>
+        <Grid columns={1} doubling stackable>
+          <Grid.Column>
+            {results}
+
+          </Grid.Column>
+        </Grid>
+			</>			
+		)		
 	}
 }
 
