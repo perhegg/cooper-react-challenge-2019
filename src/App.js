@@ -1,40 +1,56 @@
-import React, { Component } from 'react';
-import DisplayCooperResult from './Components/DisplayCooperResult';
+import React, { Component } from "react";
+import "./index.css";
+import DisplayCooperResult from "./Components/DisplayCooperResult";
+import LoginForm from "./Components/LoginForm";
 import InputFields from "./Components/InputFields";
-import LoginForm from './Components/LoginForm';
-import Feader from './Components/feader'
-import { authenticate } from './Modules/Auth';
-import DisplayPerformanceData from './Components/DisplayPerformanceData'
-import DisplayResult from './Components/displayResults';
-import {Container, Grid, Form, Button, Dropdown} from 'semantic-ui-react'
-
-
+import { authenticate } from "./Modules/Auth";
+import DisplayPerformanceData from "./Components/DisplayPerformanceData";
+import { Container, Header, Button, Message, Modal, Grid, Input } from 'semantic-ui-react'
+import BmiInput from "./Components/BmiInput";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      distance: '',
-      gender: 'female',
-      age: '',
+      distance: "",
+      gender: "female",
+      age: "",
       renderLoginForm: false,
       authenticated: false,
-      email: '',
-      password: '',
-      message: '',
-      entrySaved: false,
-      renderIndex: false,
-      weight: '',
-      height: '',
-      method: 'metric'
-    }
+      email: "",
+      password: "",
+      message: "",
+      entrySaved: false
+    };
   }
-
   handleChange(event) {
     const target = event.target
     this.setState({
       [target.name]: target.value
     })
+  }
+
+  onChange(event) {
+    this.setState({
+      [event.target.id]: event.target.value,
+      entrySaved: false
+    });
+  }
+
+  onGenderChange(value) {
+    this.setState({
+      gender: value
+    })
+  }
+
+  async onLogin(e) {
+    e.preventDefault();
+    let resp = await authenticate(this.state.email, this.state.password);
+    if (resp.authenticated === true) {
+      this.setState({ authenticated: true });
+    } else {
+      this.setState({ message: resp.message, renderLoginForm: false });
+    }
   }
 
   entryHandler() {
@@ -45,158 +61,109 @@ class App extends Component {
     this.setState({ updateIndex: false });
   }
 
-  onChange(event) {
-    this.setState({
-      [event.target.id]: event.target.value,
-      entrySaved: false
-    })
-  }
-  
-  async onLogin(e) {
-    e.preventDefault();
-    let resp = await authenticate(this.state.email, this.state.password)
-    if (resp.authenticated === true) {
-      this.setState({ authenticated: true });
-    } else {
-      this.setState({ message: resp.message, renderLoginForm: false })
-    }
-  }
-
   render() {
-    let renderLogin;
-    let user;
-    let performanceDataIndex;
-    const methodList = [{text: "metric", value: "metric"}, {text: "imperial", value: "imperial"}]
-
+    let renderLogin, performanceDataIndex, user;
 
     if (this.state.authenticated === true) {
-      user = JSON.parse(sessionStorage.getItem('credentials')).uid;
+      user = JSON.parse(sessionStorage.getItem("credentials")).uid;
       renderLogin = (
-        <p>Hi {user}</p>
-      )
+        <Message positive>
+          <p>Hi {user}</p>
+        </Message>
+
+      );
       if (this.state.renderIndex === true) {
         performanceDataIndex = (
           <>
+            <Button
+              primary
+              onClick={() => this.setState({ renderIndex: false })}>
+              Hide past entries
+            </Button>
             <DisplayPerformanceData
               updateIndex={this.state.updateIndex}
               indexUpdated={this.indexUpdated.bind(this)}
             />
-            <button onClick={() => this.setState({ renderIndex: false })}>Hide past entries</button>
           </>
-        )
+        );
       } else {
         performanceDataIndex = (
-          <button id="show-index" onClick={() => this.setState({ renderIndex: true })}>Show past entries</button>
-        )
+          <Button
+            primary
+            id="show-index"
+            onClick={() => this.setState({ renderIndex: true })}
+          >
+            Show past entries
+          </Button>
+        );
       }
     } else {
       if (this.state.renderLoginForm === true) {
         renderLogin = (
           <>
-            <LoginForm 
+            <LoginForm
               loginHandler={this.onLogin.bind(this)}
               inputChangeHandler={this.onChange.bind(this)}
             />
           </>
-        )
+        );
       } else {
         renderLogin = (
           <>
-            <button id="login" onClick={() => this.setState({ renderLoginForm: true })}>Login</button>
+            <Modal
+              basic size='small'
+              trigger={
+                <Button
+                  primary
+                  id="login"
+
+                >
+                  Login
+              </Button>
+              }>
+              <Modal.Content>
+                <LoginForm
+                  loginHandler={this.onLogin.bind(this)}
+                  inputChangeHandler={this.onChange.bind(this)}
+                />
+              </Modal.Content>
+            </Modal>
+
             <p>{this.state.message}</p>
           </>
-        )
+        );
       }
     }
 
     return (
-      
-      <Container>
-        <Grid centered columns={3}>
-          <Grid.Column>
-            <Feader />
-            
-            <Dropdown 
-              selection
-              defaultValue={[0].value}
-              options={methodList}
-              onChange={this.handleChange.bind(this)}
-            />
-            
-            
-            <Form type="large">
-            <Form.Input
-              fluid
-              name="weight"
-              placeholder={`Weight (${this.state.method === "metric" ? "kg" : "lbs"})`}           
-              onChange={this.handleChange.bind(this)}  
-            />
-            <Form.Input 
-              fluid
-              name="height"
-              placeholder={`Height (${this.state.method === "metric" ? "cm" : "inches"})`}
-              onChange={this.handleChange.bind(this)}
-            />
-            </Form>
+      <div>
+        <Container>
+          <Header as='h2'>Cooper Test Assessment</Header>
 
-          </Grid.Column>
-        </Grid>
-      </Container>
+          {renderLogin}
 
-        /* <InputFields 
-              inputChangeHandler={this.onChange.bind(this)}
-            />
-            <DisplayCooperResult
-              distance={this.state.distance}
-              gender={this.state.gender}
-              age={this.state.age}
-              authenticated={this.state.authenticated}
-              entrySaved={this.state.entrySaved}
-              entryHandler={this.entryHandler.bind(this)}
-            />
-            {performanceDataIndex}
-            {renderLogin}
-          */   
-        
+          <InputFields
+            inputChangeHandler={this.onChange.bind(this)}
+            inputGenderChangeHandler={this.onGenderChange.bind(this)}
+          />
 
-        /* <div>
-          <label>Weight{this.state.method === "metric" ? "(kg)" : "(lbs)"}</label>
-          <input
-            name="weight"
-            value={this.state.weight}
-            onChange={this.handleChange.bind(this)}/>
-        </div> */
-       
-        /* <div>
-          <label>Height{this.state.method === "metric" ? "(cm)" : "(inches)"}</label>
-          <input
-            name="height"
-            value={this.state.height}
-            onChange={this.handleChange.bind(this)}/>
-       
-       
-      
-          <p>
-            <select onChange={this.handleChange.bind(this)} name="method" id="methodSelect" >
-              {methodList.map(method => (
-                <option key={method} value={method}>{method}</option>
-              ))}
-            </select>
-          </p>
-      
-       
-        
-        /* <DisplayResult 
-        weight={this.state.weight} 
-        height={this.state.height} 
-        method={this.state.method}
-        />
-        </div> */
-        
-      
-      
-    
+          <DisplayCooperResult
+            distance={this.state.distance}
+            gender={this.state.gender}
+            age={this.state.age}
+            authenticated={this.state.authenticated}
+            entrySaved={this.state.entrySaved}
+            entryHandler={this.entryHandler.bind(this)}
+          />
+          <Grid columns={1} doubling stackable>
+            <Grid.Column>
+              {performanceDataIndex}
+            </Grid.Column>
+          </Grid>
 
+        </Container>
+
+      </div>
     );
   }
 }
