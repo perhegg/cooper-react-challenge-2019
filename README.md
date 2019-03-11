@@ -1,5 +1,8 @@
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Disclaimer 
+ Please read at the bottom of this page.
 ## Available Scripts
 
 In the project directory, you can run:
@@ -47,6 +50,13 @@ We keep the Cooper logic on the client side.
 Having the logic on the client side makes the page run faster (after the initial load). It has access to rich site interactions. The code is out there for other people to see. 
 In most cases it needs an external library with makes it more vulnerable. 
 
+
+## DISCLAIMER
+
+####    Some of this code came from demos and repos made by Thomas Ochman, Link below.
+
+[React repo](https://github.com/tochman/cooper_challenge_react)
+=======
 Having the logic on the server side runs slower but faster on the initial load. You need to have great server power to be able to handle all requests. Server power costs alot of money to run smoothly and safetely. The user experience is based on the location of the server and the internet connection speed. 
 The server have a better SEO with search engines that can search through the servers to fetch desired data. 
 It's a better and more secure place to keep sensitive data (like passwords and personal information). 
