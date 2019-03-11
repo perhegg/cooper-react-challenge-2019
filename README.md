@@ -40,36 +40,15 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Question:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+In the current implementation of the Cooper Challenge (the way we presented it to you), where are we doing the calculation or rather where do we check the result of the Cooper test. On the client or on the server?What are the pros and cons of doing it that way?
 
-### Code Splitting
+We keep the Cooper logic on the client side. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
+Having the logic on the client side makes the page run faster (after the initial load). It has access to rich site interactions. The code is out there for other people to see. 
+In most cases it needs an external library with makes it more vulnerable. 
 
 
 ## DISCLAIMER
@@ -77,3 +56,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ####    Some of this code came from demos and repos made by Thomas Ochman, Link below.
 
 [React repo](https://github.com/tochman/cooper_challenge_react)
+=======
+Having the logic on the server side runs slower but faster on the initial load. You need to have great server power to be able to handle all requests. Server power costs alot of money to run smoothly and safetely. The user experience is based on the location of the server and the internet connection speed. 
+The server have a better SEO with search engines that can search through the servers to fetch desired data. 
+It's a better and more secure place to keep sensitive data (like passwords and personal information). 
