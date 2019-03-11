@@ -11,8 +11,9 @@ class DisplayCooperResult extends Component {
 
 	async saveCooperData() {
     const result = this.calculate();
+    const values = {distance: this.props.distance, gender: this.props.gender, age: this.props.age}
     try {
-      await saveData(result);
+      await saveData(result, values);
       this.props.entryHandler();
     } catch(error) {
       console.log(error);

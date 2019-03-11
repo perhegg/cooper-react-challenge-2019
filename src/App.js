@@ -5,8 +5,8 @@ import LoginForm from "./Components/LoginForm";
 import InputFields from "./Components/InputFields";
 import { authenticate } from "./Modules/Auth";
 import DisplayPerformanceData from "./Components/DisplayPerformanceData";
-import { Container, Header, Button, Message, Modal, Grid, Input } from 'semantic-ui-react'
-import BmiInput from "./Components/BmiInput";
+import { Container, Header, Button, Message, Modal, Grid, } from 'semantic-ui-react'
+//import BmiInput from "./Components/BmiInput";
 
 
 class App extends Component {
@@ -93,7 +93,7 @@ class App extends Component {
             primary
             id="show-index"
             onClick={() => this.setState({ renderIndex: true })}
-          >
+            >
             Show past entries
           </Button>
         );

@@ -3,7 +3,6 @@ import { getData } from '../Modules/PerformanceData';
 import {Line} from 'react-chartjs-2';
 import {Grid} from 'semantic-ui-react'
 
-
 class DisplayPerformanceData extends Component {
   constructor(props) {
     super(props)
@@ -21,7 +20,6 @@ class DisplayPerformanceData extends Component {
       this.props.indexUpdated();
     })
   }
-
   getCount(collection, value) {
     let count = 0;
     collection.forEach(entry => {
@@ -41,6 +39,7 @@ class DisplayPerformanceData extends Component {
   }
 
   render () {
+    debugger;
     let dataIndex;
 
     if (this.props.updateIndex === true) {
@@ -51,6 +50,7 @@ class DisplayPerformanceData extends Component {
       const labels = []
       this.state.performanceData.forEach(entry => {
         distances.push(entry.data.distance)
+        debugger;
         labels.push(entry.data.message)
       // return <div key={item.id}>{item.data.message}</div>
           })
