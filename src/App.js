@@ -8,6 +8,7 @@ import DisplayPerformanceData from "./Components/DisplayPerformanceData";
 import { Container, Header, Button, Message, Modal, Grid, Input } from 'semantic-ui-react'
 import BmiInput from "./Components/BmiInput";
 
+
 class App extends Component {
   constructor(props) {
     super(props);

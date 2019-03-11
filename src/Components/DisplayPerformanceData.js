@@ -3,6 +3,7 @@ import { getData } from '../Modules/PerformanceData';
 import {Line} from 'react-chartjs-2';
 import {Grid} from 'semantic-ui-react'
 
+
 class DisplayPerformanceData extends Component {
   constructor(props) {
     super(props)
